@@ -20,14 +20,16 @@ class App extends Component {
   };
   handleCreate = () => {
     const { input, todos } = this.state;
-    this.setState({
-      input: '', //input 내용 비우기
-      todos: todos.concat({
-        id: this.id++,
-        text: input,
-        checked: false,
-      }),
-    });
+    if (this.state.input != '') {
+      this.setState({
+        input: '', //input 내용 비우기
+        todos: todos.concat({
+          id: this.id++,
+          text: input,
+          checked: false,
+        }),
+      });
+    }
   };
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
