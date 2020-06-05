@@ -1,12 +1,20 @@
 import React from 'react';
 
-const Form = ({ value, onChange, onCreate, onKeyPress }) => {
+const Form = ({ addValue, searchValue, onChange, onCreate, onSearch }) => {
   return (
-    <div className="form">
-      <input value={value} onChange={onChange} onKeyPress={onKeyPress} />
-      <button type="button" className="add-btn" onClick={onCreate}>
-        추가
-      </button>
+    <div>
+      <div className="form">
+        <input value={addValue} name="addInput" onChange={onChange} />
+        <button type="button" className="add-btn" onClick={onCreate}>
+          추가
+        </button>
+      </div>
+      <div className="form">
+        <input value={searchValue} name="searchInput" onChange={onChange} />
+        <button type="button" className="search-btn" onClick={onSearch}>
+          검색
+        </button>
+      </div>
     </div>
   );
 };

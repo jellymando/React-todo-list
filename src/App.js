@@ -6,7 +6,8 @@ import Todoitemlist from './components/Todoitemlist';
 class App extends Component {
   id = 3;
   state = {
-    input: '',
+    addInput: '',
+    searchInput: '',
     todos: [
       { id: 0, text: '리액트', checked: false },
       { id: 1, text: '리액트', checked: true },
@@ -15,27 +16,28 @@ class App extends Component {
   };
   handleChange = (e) => {
     this.setState({
-      input: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
   handleCreate = () => {
-    const { input, todos } = this.state;
-    if (this.state.input != '') {
+    const { addInput, todos } = this.state;
+    //console.log(addInput);
+    if (this.state.addInput !== '') {
       this.setState({
-        input: '', //input 내용 비우기
+        addInput: '', //input 내용 비우기
         todos: todos.concat({
           id: this.id++,
-          text: input,
+          text: addInput,
           checked: false,
         }),
       });
     }
   };
-  handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      this.handleCreate();
-    }
-  };
+  // handleKeyPress = (e) => {
+  //   if (e.key === 'Enter') {
+  //     this.handleCreate();
+  //   }
+  // };
   handleToggle = (id) => {
     const { todos } = this.state;
     const index = todos.findIndex((todo) => todo.id === id);
@@ -57,23 +59,33 @@ class App extends Component {
     });
   };
 
+  handleSearch = (value) => {
+    const { todos } = this.state;
+    this.setState({
+      todos: todos.filter((todo) => todo.text === value),
+    });
+  };
+
   render() {
-    const { input, todos } = this.state;
+    const { addInput, searchInput, todos } = this.state;
     const {
       handleChange,
       handleCreate,
-      handleKeyPress,
+      //handleKeyPress,
       handleToggle,
       handleRemove,
+      handleSearch,
     } = this;
     return (
       <Todolist
         form={
           <Form
-            value={input}
+            addValue={addInput}
+            searchValue={searchInput}
             onChange={handleChange}
             onCreate={handleCreate}
-            onKeyPress={handleKeyPress}
+            //onKeyPress={handleKeyPress}
+            onSearch={handleSearch}
           />
         }
       >
