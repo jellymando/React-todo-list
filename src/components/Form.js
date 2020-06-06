@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Form = ({ addValue, searchValue, onChange, onCreate, onSearch }) => {
+const Form = ({ addValue, searchValue, onChange, onCreate }) => {
   return (
     <div>
       <div className="form">
@@ -11,9 +11,6 @@ const Form = ({ addValue, searchValue, onChange, onCreate, onSearch }) => {
       </div>
       <div className="form">
         <input value={searchValue} name="searchInput" onChange={onChange} />
-        <button type="button" className="search-btn" onClick={onSearch}>
-          검색
-        </button>
       </div>
     </div>
   );

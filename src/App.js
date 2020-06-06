@@ -4,16 +4,20 @@ import Form from './components/Form';
 import Todoitemlist from './components/Todoitemlist';
 
 class App extends Component {
-  id = 3;
-  state = {
-    addInput: '',
-    searchInput: '',
-    todos: [
-      { id: 0, text: '리액트', checked: false },
-      { id: 1, text: '리액트', checked: true },
-      { id: 2, text: '리액트', checked: false },
-    ],
-  };
+  constructor(props) {
+    super(props);
+
+    this.id = 3;
+    this.state = {
+      addInput: '',
+      searchInput: '',
+      todos: [
+        { id: 0, text: '리액트', checked: false },
+        { id: 1, text: '리액트', checked: true },
+        { id: 2, text: '리액트', checked: false },
+      ],
+    };
+  }
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -59,22 +63,17 @@ class App extends Component {
     });
   };
 
-  handleSearch = (value) => {
-    const { todos } = this.state;
-    this.setState({
-      todos: todos.filter((todo) => todo.text === value),
-    });
-  };
-
   render() {
     const { addInput, searchInput, todos } = this.state;
+    const searchResult = todos.filter(
+      (todo) => todo.text.indexOf(searchInput) !== -1
+    );
     const {
       handleChange,
       handleCreate,
       //handleKeyPress,
       handleToggle,
       handleRemove,
-      handleSearch,
     } = this;
     return (
       <Todolist
@@ -85,12 +84,11 @@ class App extends Component {
             onChange={handleChange}
             onCreate={handleCreate}
             //onKeyPress={handleKeyPress}
-            onSearch={handleSearch}
           />
         }
       >
         <Todoitemlist
-          todos={todos}
+          todos={searchResult}
           onToggle={handleToggle}
           onRemove={handleRemove}
         />
